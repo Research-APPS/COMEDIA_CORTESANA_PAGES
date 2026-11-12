@@ -1,0 +1,376 @@
+{
+  "@context": {
+    "@vocab": "https://comedia-cortesana.local/ns#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "cmc": "https://comedia-cortesana.local/ns#",
+    "name": "schema:name",
+    "alternateName": "schema:alternateName",
+    "description": "schema:description",
+    "identifier": "schema:identifier",
+    "url": {
+      "@id": "schema:url",
+      "@type": "@id"
+    },
+    "author": {
+      "@id": "schema:author",
+      "@type": "@id"
+    },
+    "location": {
+      "@id": "schema:location",
+      "@type": "@id"
+    },
+    "startDate": {
+      "@id": "schema:startDate",
+      "@type": "xsd:string"
+    },
+    "genre": "schema:genre",
+    "sameAs": {
+      "@id": "schema:sameAs",
+      "@type": "@id"
+    },
+    "titulo": "cmc:titulo",
+    "autor": "cmc:autor",
+    "mito": "cmc:mito",
+    "remite_a": "cmc:remite_a",
+    "edicion_consultada": "cmc:edicion_consultada",
+    "signatura": "cmc:signatura",
+    "pagina_libro": "cmc:pagina_libro",
+    "pagina_pdf": "cmc:pagina_pdf",
+    "fecha": "cmc:fecha",
+    "lugar": "cmc:lugar",
+    "compania": "cmc:compania",
+    "espacio": "cmc:espacio",
+    "url_catcom": "cmc:url_catcom",
+    "tipo_obra": "cmc:tipo_obra",
+    "manuscrito": "cmc:manuscrito",
+    "documentada_en": {
+      "@id": "cmc:documentada_en",
+      "@type": "@id"
+    },
+    "tiene_cita": {
+      "@id": "cmc:tiene_cita",
+      "@type": "@id"
+    },
+    "remite_a_cita": {
+      "@id": "cmc:remite_a_cita",
+      "@type": "@id"
+    },
+    "trata_mito": {
+      "@id": "cmc:trata_mito",
+      "@type": "@id"
+    },
+    "misma_obra_en_oconnor": {
+      "@id": "cmc:misma_obra_en_oconnor",
+      "@type": "@id"
+    },
+    "tiene_representacion": {
+      "@id": "cmc:tiene_representacion",
+      "@type": "@id"
+    },
+    "en_lugar": {
+      "@id": "cmc:en_lugar",
+      "@type": "@id"
+    },
+    "owl": "http://www.w3.org/2002/07/owl#"
+  },
+  "@graph": [
+    {
+      "@id": "cmc:obra",
+      "@type": "owl:Class",
+      "name": "Obra",
+      "description": "Ficha del catálogo de comedia cortesana.",
+      "propiedades": [
+        "titulo",
+        "autor",
+        "tipo_obra",
+        "pagina_pdf",
+        "url_catcom"
+      ]
+    },
+    {
+      "@id": "cmc:cita_oconnor",
+      "@type": "owl:Class",
+      "name": "Cita O'Connor",
+      "description": "Entrada o remisión de la bibliografía de mitos dramatizados.",
+      "propiedades": [
+        "mito",
+        "titulo",
+        "autor",
+        "edicion_consultada",
+        "signatura",
+        "pagina_libro",
+        "remite_a",
+        "manuscrito"
+      ]
+    },
+    {
+      "@id": "cmc:mito",
+      "@type": "owl:Class",
+      "name": "Mito",
+      "description": "Figura o episodio mitológico bajo el que O'Connor agrupa fichas.",
+      "propiedades": [
+        "mito"
+      ]
+    },
+    {
+      "@id": "cmc:representacion",
+      "@type": "owl:Class",
+      "name": "Representación",
+      "description": "Función documentada (fecha, lugar, compañía).",
+      "propiedades": [
+        "fecha",
+        "lugar",
+        "compania",
+        "espacio"
+      ]
+    },
+    {
+      "@id": "cmc:lugar",
+      "@type": "owl:Class",
+      "name": "Lugar",
+      "description": "Ciudad o espacio de representación.",
+      "propiedades": [
+        "lugar"
+      ]
+    },
+    {
+      "@id": "cmc:fuente",
+      "@type": "owl:Class",
+      "name": "Fuente / catálogo",
+      "description": "Procedencia documental de los datos.",
+      "propiedades": []
+    },
+    {
+      "@id": "cmc:titulo",
+      "@type": "owl:DatatypeProperty",
+      "name": "Título",
+      "tipo_valor": "texto",
+      "fuente": null
+    },
+    {
+      "@id": "cmc:autor",
+      "@type": "owl:DatatypeProperty",
+      "name": "Dramaturgo / autor",
+      "tipo_valor": "texto",
+      "fuente": null
+    },
+    {
+      "@id": "cmc:mito",
+      "@type": "owl:DatatypeProperty",
+      "name": "Mito",
+      "tipo_valor": "mito",
+      "fuente": "oconnor"
+    },
+    {
+      "@id": "cmc:remite_a",
+      "@type": "owl:DatatypeProperty",
+      "name": "Remite al mito",
+      "tipo_valor": "mito",
+      "fuente": "oconnor"
+    },
+    {
+      "@id": "cmc:edicion_consultada",
+      "@type": "owl:DatatypeProperty",
+      "name": "Edición consultada",
+      "tipo_valor": "texto",
+      "fuente": "oconnor"
+    },
+    {
+      "@id": "cmc:signatura",
+      "@type": "owl:DatatypeProperty",
+      "name": "Signatura",
+      "tipo_valor": "signatura",
+      "fuente": "oconnor"
+    },
+    {
+      "@id": "cmc:pagina_libro",
+      "@type": "owl:DatatypeProperty",
+      "name": "Página del libro",
+      "tipo_valor": "pagina",
+      "fuente": "oconnor"
+    },
+    {
+      "@id": "cmc:pagina_pdf",
+      "@type": "owl:DatatypeProperty",
+      "name": "Página FUENTES IX",
+      "tipo_valor": "pagina",
+      "fuente": "fuentesix"
+    },
+    {
+      "@id": "cmc:fecha",
+      "@type": "owl:DatatypeProperty",
+      "name": "Fecha",
+      "tipo_valor": "fecha",
+      "fuente": null
+    },
+    {
+      "@id": "cmc:lugar",
+      "@type": "owl:DatatypeProperty",
+      "name": "Lugar",
+      "tipo_valor": "lugar",
+      "fuente": null
+    },
+    {
+      "@id": "cmc:compania",
+      "@type": "owl:DatatypeProperty",
+      "name": "Compañía",
+      "tipo_valor": "texto",
+      "fuente": null
+    },
+    {
+      "@id": "cmc:espacio",
+      "@type": "owl:DatatypeProperty",
+      "name": "Espacio de representación",
+      "tipo_valor": "lugar",
+      "fuente": null
+    },
+    {
+      "@id": "cmc:url_catcom",
+      "@type": "owl:DatatypeProperty",
+      "name": "Enlace CATCOM",
+      "tipo_valor": "url",
+      "fuente": "catcom"
+    },
+    {
+      "@id": "cmc:tipo_obra",
+      "@type": "owl:DatatypeProperty",
+      "name": "Tipo de obra",
+      "tipo_valor": "texto",
+      "fuente": null
+    },
+    {
+      "@id": "cmc:manuscrito",
+      "@type": "owl:DatatypeProperty",
+      "name": "Manuscrito",
+      "tipo_valor": "bool",
+      "fuente": null
+    },
+    {
+      "@id": "cmc:documentada_en",
+      "@type": "owl:ObjectProperty",
+      "name": "está documentada en",
+      "verbalizacion_inversa": "documenta",
+      "origen": "obra",
+      "destino": "fuente"
+    },
+    {
+      "@id": "cmc:tiene_cita",
+      "@type": "owl:ObjectProperty",
+      "name": "tiene cita",
+      "verbalizacion_inversa": "cita la obra",
+      "origen": "obra",
+      "destino": "cita_oconnor"
+    },
+    {
+      "@id": "cmc:remite_a_cita",
+      "@type": "owl:ObjectProperty",
+      "name": "remite a la entrada",
+      "verbalizacion_inversa": "agrupa la remisión",
+      "origen": "cita_oconnor",
+      "destino": "cita_oconnor"
+    },
+    {
+      "@id": "cmc:trata_mito",
+      "@type": "owl:ObjectProperty",
+      "name": "trata el mito",
+      "verbalizacion_inversa": "aparece en",
+      "origen": "cita_oconnor",
+      "destino": "mito"
+    },
+    {
+      "@id": "cmc:misma_obra_en_oconnor",
+      "@type": "owl:ObjectProperty",
+      "name": "comparte título en O'Connor con",
+      "verbalizacion_inversa": "comparte título en O'Connor con",
+      "origen": "cita_oconnor",
+      "destino": "cita_oconnor"
+    },
+    {
+      "@id": "cmc:tiene_representacion",
+      "@type": "owl:ObjectProperty",
+      "name": "se representó en",
+      "verbalizacion_inversa": "es representación de",
+      "origen": "obra",
+      "destino": "representacion"
+    },
+    {
+      "@id": "cmc:en_lugar",
+      "@type": "owl:ObjectProperty",
+      "name": "tuvo lugar en",
+      "verbalizacion_inversa": "acogió",
+      "origen": "representacion",
+      "destino": "lugar"
+    },
+    {
+      "@id": "https://comedia-cortesana.local/fuente/fuentesix",
+      "@type": "cmc:Fuente",
+      "identifier": "fuentesix",
+      "name": "FUENTES IX",
+      "description": "Comedias en Madrid: 1603-1709 (Varey & Shergold, 1987).",
+      "aporta": [
+        "titulo",
+        "autor",
+        "tipo_obra",
+        "representaciones",
+        "compañías",
+        "espacios",
+        "fechas_representacion",
+        "pagina_pdf"
+      ],
+      "no_aporta": [
+        "url_catcom",
+        "mito",
+        "signatura"
+      ]
+    },
+    {
+      "@id": "https://comedia-cortesana.local/fuente/catcom",
+      "@type": "cmc:Fuente",
+      "identifier": "catcom",
+      "name": "CATCOM",
+      "description": "Base de datos CATCOM (Universidad de Valencia).",
+      "aporta": [
+        "titulo",
+        "autor",
+        "tipo_obra",
+        "atribucion",
+        "url_catcom",
+        "representaciones",
+        "bibliografia",
+        "fecha",
+        "lugar"
+      ],
+      "no_aporta": [
+        "pagina_pdf",
+        "mito",
+        "signatura"
+      ]
+    },
+    {
+      "@id": "https://comedia-cortesana.local/fuente/oconnor",
+      "@type": "cmc:Fuente",
+      "identifier": "oconnor",
+      "name": "O'Connor",
+      "description": "Bibliografía de mitos dramatizados (Thomas Austin O'Connor, en López Férez 2006, pp. 569-599).",
+      "aporta": [
+        "mito",
+        "titulo",
+        "autor",
+        "edicion_consultada",
+        "signatura",
+        "remision",
+        "pagina_libro"
+      ],
+      "no_aporta": [
+        "representaciones",
+        "espacios",
+        "mecenas",
+        "fechas_representacion",
+        "edicion_principe",
+        "fecha",
+        "lugar"
+      ]
+    }
+  ]
+}

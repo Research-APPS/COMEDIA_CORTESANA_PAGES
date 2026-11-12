@@ -1,0 +1,8 @@
+# Credenciales locales de la puerta (no subir)
+config.local.js
+
+# Copias fechadas (el data/ vigente sí se versiona)
+backups/
+
+.DS_Store
+*.log

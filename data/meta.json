@@ -1,0 +1,23 @@
+{
+  "version": "1.1",
+  "formato": "JSON-LD",
+  "generado_en": "2026-11-12T10:31:17.299510+00:00",
+  "namespace": "https://comedia-cortesana.local/ns#",
+  "totales": {
+    "obras": 2606,
+    "autores": 79,
+    "lugares": 219,
+    "representaciones": 4569,
+    "nodos_grafo": 7476
+  },
+  "filtros": {
+    "incluir_segundo_plano": false,
+    "incluir_descartadas": false,
+    "excluye_fusionadas": true
+  },
+  "fuentes": [
+    "fuentesix",
+    "catcom",
+    "oconnor"
+  ]
+}

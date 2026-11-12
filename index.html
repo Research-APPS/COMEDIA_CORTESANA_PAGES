@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Comedia cortesana · consulta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="es-bloqueado">
+  <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitulo">
+    <form class="gate-card" id="gateForm">
+      <h1 id="gateTitulo">Comedia cortesana</h1>
+      <p>Wiki ontológica de consulta (JSON-LD). Acceso de demostración.</p>
+      <label for="gatePass">Contraseña</label>
+      <input type="password" id="gatePass" name="password" autocomplete="current-password" required>
+      <button type="submit">Entrar</button>
+      <div class="gate-error" id="gateError" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <main class="shell" id="app" hidden>
+    <header class="top">
+      <div>
+        <p class="eyebrow">COMEDIA26 · consulta ontológica</p>
+        <h1 class="brand">Comedia cortesana</h1>
+        <p class="tagline">Copia estática del catálogo (JSON-LD). Búsqueda inspirada en <a href="https://catcom.uv.es/consulta/" target="_blank" rel="noopener">CATCOM</a>.</p>
+      </div>
+      <div class="meta-bar" id="metaBar">Cargando…</div>
+    </header>
+
+    <nav class="nav-tabs" aria-label="Secciones">
+      <button type="button" class="tab es-activa" data-vista="buscar">Búsqueda de registros</button>
+      <button type="button" class="tab" data-vista="indice">Índice de títulos</button>
+    </nav>
+
+    <section id="vistaBuscar" class="vista">
+      <form class="busqueda" id="formBusqueda" autocomplete="off">
+        <h2 class="form-titulo">Formulario de búsqueda</h2>
+        <div class="campos">
+          <label class="campo span-2">
+            <span>Título</span>
+            <input type="search" name="titulo" id="fTitulo" placeholder="Título o parte del título (también alternativos)">
+          </label>
+          <label class="campo">
+            <span>Dramaturgo</span>
+            <select name="autor" id="fAutor"><option value="">Todos</option></select>
+          </label>
+          <label class="campo">
+            <span>Tipo / género</span>
+            <select name="tipo" id="fTipo"><option value="">Todos</option></select>
+          </label>
+          <label class="campo">
+            <span>Fuente</span>
+            <select name="fuente" id="fFuente"><option value="">Todas</option></select>
+          </label>
+          <label class="campo">
+            <span>Lugar</span>
+            <select name="lugar" id="fLugar"><option value="">Todos</option></select>
+          </label>
+          <label class="campo">
+            <span>Espacio / categoría</span>
+            <select name="espacio" id="fEspacio"><option value="">Todos</option></select>
+          </label>
+          <label class="campo">
+            <span>Compañía</span>
+            <select name="compania" id="fCompania"><option value="">Todas</option></select>
+          </label>
+          <label class="campo">
+            <span>Fecha desde (año)</span>
+            <input type="text" name="desde" id="fDesde" inputmode="numeric" placeholder="p. ej. 1650">
+          </label>
+          <label class="campo">
+            <span>Fecha hasta (año)</span>
+            <input type="text" name="hasta" id="fHasta" inputmode="numeric" placeholder="p. ej. 1700">
+          </label>
+          <label class="campo">
+            <span>Estado de ficha</span>
+            <select name="estado" id="fEstado"><option value="">Todos</option></select>
+          </label>
+          <label class="campo check">
+            <span>Música</span>
+            <select name="musica" id="fMusica">
+              <option value="">Indiferente</option>
+              <option value="1">Con música conservada</option>
+              <option value="0">Sin música</option>
+            </select>
+          </label>
+        </div>
+        <div class="form-acciones">
+          <button type="submit" class="btn-primario">Buscar</button>
+          <button type="reset" class="btn-secundario">Limpiar</button>
+          <span class="pista-dinamica">Los filtros se aplican al momento</span>
+          <span class="resultado-n" id="resultadoN" aria-live="polite"></span>
+        </div>
+      </form>
+
+      <p class="pista-lista">Clic en una fila abre la ficha (modal de consulta, como en el editor).</p>
+      <section class="lista lista-ancha" id="lista" aria-label="Resultados"></section>
+    </section>
+
+    <section id="vistaIndice" class="vista" hidden>
+      <h2 class="form-titulo">Índice de títulos</h2>
+      <div class="letras" id="letras" role="navigation" aria-label="Letras"></div>
+      <p class="pista-lista">Clic en un título para abrir la ficha.</p>
+      <section class="lista lista-ancha" id="listaIndice" aria-label="Títulos por letra"></section>
+    </section>
+
+    <p class="pie">
+      Datos en <code>data/</code> · export: <code>python manage.py exportar_ontologia_pages</code>.
+      Modelo de consulta próximo a CATCOM (título, dramaturgo, género, fecha, lugar, espacio, compañía).
+    </p>
+  </main>
+
+  <!-- Modal de consulta (eco del editor, solo lectura) -->
+  <div id="fichaModal" class="modal-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="modalTitulo">Ficha</h2>
+        <div class="modal-header-actions">
+          <span class="fuente-chip" id="chipFuentesix" hidden><span class="fuente-punto"></span>FUENTES IX</span>
+          <span class="fuente-chip catcom" id="chipCatcom" hidden><span class="fuente-punto"></span>CATCOM</span>
+          <span class="badge-estado" id="modalEstado"></span>
+          <button type="button" class="btn-close" id="modalCerrar" title="Cerrar" aria-label="Cerrar">✕</button>
+        </div>
+      </div>
+      <nav class="modal-tabs" id="modalTabs" role="tablist">
+        <button type="button" class="modal-tab es-activa" data-tab="ident" role="tab">Identificación</button>
+        <button type="button" class="modal-tab" data-tab="autoria" role="tab">Autoría</button>
+        <button type="button" class="modal-tab" data-tab="clasif" role="tab">Clasificación</button>
+        <button type="button" class="modal-tab" data-tab="datacion" role="tab">Datación</button>
+        <button type="button" class="modal-tab" data-tab="musica" role="tab">Música y escena</button>
+        <button type="button" class="modal-tab" data-tab="contexto" role="tab">Contexto</button>
+        <button type="button" class="modal-tab" data-tab="editorial" role="tab">Testimonios</button>
+        <button type="button" class="modal-tab" data-tab="obs" role="tab">Observaciones</button>
+      </nav>
+      <div class="modal-scroll" id="modalCuerpo"></div>
+      <div class="modal-footer">
+        <span class="modal-aviso">Solo consulta · los cambios se hacen en el editor</span>
+        <button type="button" class="btn-secundario" id="modalCerrar2">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="config.local.js"></script>
+  <script>
+    window.COMEDIA_PAGES_CONFIG = window.COMEDIA_PAGES_CONFIG || {
+      password: "comedia26",
+      titulo: "Comedia cortesana · wiki ontológica",
+    };
+  </script>
+  <script src="assets/app.js"></script>
+</body>
+</html>
